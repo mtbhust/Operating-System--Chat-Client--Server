@@ -19,7 +19,7 @@ def RunClient(serverIP):
     host = socket.gethostbyname(socket.gethostname())
     port = random.randint(6000,10000)
     print('Client IP->'+str(host)+' Port->'+str(port))
-    server = (str(serverIP),5000)
+    server = (str(serverIP),1234)
     s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
     s.bind((host,port))
 
@@ -51,7 +51,7 @@ def RecvData(sock,recvPackets):
 
 def RunServer():
     host = socket.gethostbyname(socket.gethostname())
-    port = 5000
+    port = 1234
     print('Server hosting on IP-> '+str(host))
     s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
     s.bind((host,port))
