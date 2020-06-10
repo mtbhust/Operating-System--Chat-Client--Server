@@ -50,7 +50,7 @@ class ServerChat:
                     self.serverSocket.sendto(message, addr)
 
 if __name__ == "__main__": 
-    host = "10.1.4.104"
+    host = socket.gethostbyname(socket.gethostname())
     port = int(1235)
     server = ServerChat(host, port)          
     server.createSocket()         

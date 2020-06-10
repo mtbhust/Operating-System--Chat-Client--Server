@@ -30,7 +30,7 @@ class ClientChat:
         name = input("Enter your name: ")
         if name != "":
             self.name = name
-        self.clientSocket.sendto(encoding(self.name), self.server)
+        self.clientSocket.sendto(encoding(self.name + "join the chat server"), self.server)
     def messageReciever(self):
         while True:
             try:
