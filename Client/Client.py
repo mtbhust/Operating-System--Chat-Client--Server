@@ -16,7 +16,7 @@ class ClientChat:
         self.port = port
         self.name = "Guest"
         self.messageQueue = Queue()
-        self.server = (self.host, 1234)
+        self.server = (self.host, 1235)
     def createSocket(self):
         try:
             print(f"Creating chat client on host {self.host}, port {self.port}")
@@ -30,8 +30,7 @@ class ClientChat:
         name = input("Enter your name: ")
         if name != "":
             self.name = name
-        self.name = encoding(self.name)
-        self.clientSocket.sendto(self.name, self.server)
+        self.clientSocket.sendto(encoding(self.name), self.server)
     def messageReciever(self):
         while True:
             try:
@@ -46,14 +45,14 @@ class ClientChat:
 
     def run(self):
         while True:
-            data = input()
-            if (data == 'quit'):
+            message = input()
+            if (message == 'quit'):
                 break
-            if data =='':
+            if message =='':
                 continue
-            data = self.name +":" + data
-            data = encoding(data)
-            self.clientSocket.sendto(data,self.server)
+            message = self.name +":" + message
+            message = encoding(message)
+            self.clientSocket.sendto(message,self.server)
         self.clientSocket.sendto(encoding('qqq'), server)
         self.clientSocket.close(
         os._exit(1)

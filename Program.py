@@ -19,7 +19,7 @@ def RunClient(serverIP):
     host = socket.gethostbyname(socket.gethostname())
     port = random.randint(6000,10000)
     print('Client IP->'+str(host)+' Port->'+str(port))
-    server = (str(serverIP),1234)
+    server = (str(serverIP),1235)
     s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
     s.bind((host,port))
 
