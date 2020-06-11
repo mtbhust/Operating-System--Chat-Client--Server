@@ -23,14 +23,19 @@ class ClientChat:
             self.clientSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             self.clientSocket.bind((self.host, self.port))
             print(f"Creating chat client on host {self.host}, port {self.port} sucessfully")
+            return "Successful"
         except Exception as e:
             print(e)
             print(f"Creating chat client on host {self.host}, port {self.port} failed")
+            return "Failed"
     def defineUser(self):
         name = input("Enter your name: ")
         if name != "":
             self.name = name
-        self.clientSocket.sendto(encoding(self.name + "join the chat server"), self.server)
+        try:
+            self.clientSocket.sendto(encoding(self.name + "join the chat server"), self.server)
+        except:
+            print("error")
     def messageReciever(self):
         while True:
             try:

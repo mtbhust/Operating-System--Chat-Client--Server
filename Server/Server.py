@@ -5,6 +5,7 @@ def encoding(message):
     return message.encode("utf-8")
 def decoding(message):
     return message.decode("utf-8")
+    
 class ServerChat:
 
     def __init__(self, host, port):
