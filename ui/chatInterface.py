@@ -6,144 +6,6 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
-
-import socket
-import socket
-from threading import Thread
-from queue import Queue
-import random
-def encoding(message):
-    message = message.encode("utf-8")
-    return message
-def decoding(message):
-    message = message.decode("utf-8")
-    return message
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(263, 84)
-        self.groupBox = QtWidgets.QGroupBox(Dialog)
-        self.groupBox.setGeometry(QtCore.QRect(10, 10, 241, 61))
-        self.groupBox.setStyleSheet("background-color:rgb(233, 210, 255);\n"
-"border-radius: 5px")
-        self.groupBox.setObjectName("groupBox")
-        self.pushButton = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton.setGeometry(QtCore.QRect(170, 20, 61, 23))
-        self.pushButton.setStyleSheet("background-color:rgb(222, 242, 255);\n"
-"border-radius: 5px")
-        self.pushButton.setObjectName("pushButton")
-        self.lineEdit = QtWidgets.QLineEdit(self.groupBox)
-        self.lineEdit.setGeometry(QtCore.QRect(20, 20, 131, 20))
-        self.lineEdit.setStyleSheet("background-color:rgb(222, 242, 255);\n"
-"border-radius: 5px")
-        self.lineEdit.setObjectName("lineEdit")
-
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
-        self.pushButton.clicked.connect(self.returnName)
-
-    def retranslateUi(self, Dialog):
-        _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.groupBox.setTitle(_translate("Dialog", "Enter your name:"))
-        self.pushButton.setText(_translate("Dialog", "OK"))
-        self.lineEdit.setText(_translate("Dialog", "Name..."))
-    def returnName(self):
-        return self.lineEdit.text()
-class NameDialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(263, 84)
-        self.groupBox = QtWidgets.QGroupBox(Dialog)
-        self.groupBox.setGeometry(QtCore.QRect(10, 10, 241, 61))
-        self.groupBox.setStyleSheet("background-color:rgb(233, 210, 255);\n"
-"border-radius: 5px")
-        self.groupBox.setObjectName("groupBox")
-        self.pushButton = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton.setGeometry(QtCore.QRect(170, 20, 61, 23))
-        self.pushButton.setStyleSheet("background-color:rgb(222, 242, 255);\n"
-"border-radius: 5px")
-        self.pushButton.setObjectName("pushButton")
-        self.lineEdit = QtWidgets.QLineEdit(self.groupBox)
-        self.lineEdit.setGeometry(QtCore.QRect(20, 20, 131, 20))
-        self.lineEdit.setStyleSheet("background-color:rgb(222, 242, 255);\n"
-"border-radius: 5px")
-        self.lineEdit.setObjectName("lineEdit")
-
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
-        self.pushButton.clicked.connect(self.returnName)
-
-    def retranslateUi(self, Dialog):
-        _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.groupBox.setTitle(_translate("Dialog", "Enter your name:"))
-        self.pushButton.setText(_translate("Dialog", "OK"))
-        self.lineEdit.setText(_translate("Dialog", "Name..."))
-    def returnName(self):
-        return self.lineEdit.text()
-class ClientChat:
-    def __init__(self, host, port):
-        host = socket.gethostbyname(socket.gethostname())
-        port = random.randint(6000,10000)
-        self.host = host
-        self.port = port
-        self.name = "Guest"
-        self.messageQueue = Queue()
-        self.server = (self.host, 1235)
-    def createSocket(self):
-        try:
-            print(f"Creating chat client on host {self.host}, port {self.port}")
-            self.clientSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            self.clientSocket.bind((self.host, self.port))
-            print(f"Creating chat client on host {self.host}, port {self.port} sucessfully")
-        except Exception as e:
-            print(e)
-            print(f"Creating chat client on host {self.host}, port {self.port} failed")
-    def defineUser(self):
-        name = input("Enter your name: ")
-        if name != "":
-            self.name = name
-        try:
-            self.clientSocket.sendto(encoding(self.name + "join the chat server"), self.server)
-        except:
-            print("error")
-    def messageReciever(self):
-        while True:
-            try:
-                message, address = self.clientSocket.recvfrom(1024)
-                print(message)
-                self.messageQueue.put((message, address))
-            except: 
-                pass
-    def startThread(self):
-        reciever = Thread(target= self.messageReciever)
-        reciever.start()
-
-    def run(self):
-        while True:
-            message = input()
-            if (message == 'quit'):
-                break
-            if message =='':
-                continue
-            message = self.name +":" + message
-            message = encoding(message)
-            self.clientSocket.sendto(message,self.server)
-        self.clientSocket.sendto(encoding('qqq'), server)
-        self.clientSocket.close(
-        os._exit(1)
-        )
-
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file '../ui/chat.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -259,7 +121,7 @@ class Ui_MainWindow(object):
         self.label_5.setStyleSheet("background-color: rgb(134, 74, 255)rgb(255, 48, 238)")
         self.label_5.setObjectName("label_5")
         self.label_7 = QtWidgets.QLabel(self.groupBox_2)
-        self.label_7.setGeometry(QtCore.QRect(89, 11, 121, 14))
+        self.label_7.setGeometry(QtCore.QRect(89, 11, 121, 20))
         font = QtGui.QFont()
         font.setFamily("Microsoft PhagsPa")
         font.setPointSize(10)
@@ -267,7 +129,7 @@ class Ui_MainWindow(object):
         self.label_7.setStyleSheet("background-color: rgb(134, 74, 255)rgb(255, 48, 238)")
         self.label_7.setObjectName("label_7")
         self.label_8 = QtWidgets.QLabel(self.groupBox_2)
-        self.label_8.setGeometry(QtCore.QRect(265, 11, 141, 14))
+        self.label_8.setGeometry(QtCore.QRect(265, 11, 141, 16))
         font = QtGui.QFont()
         font.setFamily("Microsoft PhagsPa")
         font.setPointSize(10)
@@ -309,13 +171,6 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        
-        #Client
-        self.clientHost = socket.gethostbyname(socket.gethostname())
-        self.clientPort = random.randint(6000, 10000)
-
-        self.label_7.setText(self.clientHost)
-        self.label_8.setText(str(self.clientPort))
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -333,34 +188,13 @@ class Ui_MainWindow(object):
         self.label_7.setText(_translate("MainWindow", "...."))
         self.label_8.setText(_translate("MainWindow", "...."))
         self.pushButton_3.setText(_translate("MainWindow", "Send"))
-    def connectClicked(self):
-        Thread(target=self.clientThread).start()
-    def clientThread(self):
-        host =  self.label.text()
-        port = self.label_2.text()
-        self.label_3.setText("Connected")
-        import sys
-        app = QtWidgets.QApplication(sys.argv)
-        Dialog = QtWidgets.QDialog()
-        ui = Ui_Dialog()
-        ui.setupUi(Dialog)
-        Dialog.show()
-        sys.exit(app.exec_())
-    
-    def sendMessage(self):
-        a=1
-    def personalMessage(self):
-        print("aa")
-    def makeGroupBox(self, text):
-        hi = ""
+
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-    ui.pushButton.clicked.connect(lambda: ui.connectClicked())
     MainWindow.show()
     sys.exit(app.exec_())
-
-

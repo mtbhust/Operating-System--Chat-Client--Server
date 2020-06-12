@@ -10,8 +10,6 @@ def decoding(message):
     return message
 class ClientChat:
     def __init__(self, host, port):
-        host = socket.gethostbyname(socket.gethostname())
-        port = random.randint(6000,10000)
         self.host = host
         self.port = port
         self.name = "Guest"
@@ -28,8 +26,7 @@ class ClientChat:
             print(e)
             print(f"Creating chat client on host {self.host}, port {self.port} failed")
             return "Failed"
-    def defineUser(self):
-        name = input("Enter your name: ")
+    def defineUser(self,name):
         if name != "":
             self.name = name
         try:
@@ -59,9 +56,8 @@ class ClientChat:
             message = encoding(message)
             self.clientSocket.sendto(message,self.server)
         self.clientSocket.sendto(encoding('qqq'), server)
-        self.clientSocket.close(
+        self.clientSocket.close()
         os._exit(1)
-        )
 if __name__ == "__main__":
     host = input("Serverhost: ")
     port = input("serverport: ")
