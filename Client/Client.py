@@ -2,31 +2,35 @@ import socket
 from threading import Thread
 from queue import Queue
 import random
+
 def encoding(message):
     message = message.encode("utf-8")
     return message
+
 def decoding(message):
     message = message.decode("utf-8")
     return message
+
 class ClientChat:
     def __init__(self, host, port):
+        host = socket.gethostbyname(socket.gethostname())
+        port = random.randint(6000,10000)
         self.host = host
         self.port = port
         self.name = "Guest"
         self.messageQueue = Queue()
-        self.server = (self.host, 1235)
+        self.server = (self.host, self.port)
     def createSocket(self):
         try:
             print(f"Creating chat client on host {self.host}, port {self.port}")
             self.clientSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             self.clientSocket.bind((self.host, self.port))
             print(f"Creating chat client on host {self.host}, port {self.port} sucessfully")
-            return "Successful"
         except Exception as e:
             print(e)
             print(f"Creating chat client on host {self.host}, port {self.port} failed")
-            return "Failed"
-    def defineUser(self,name):
+    def defineUser(self):
+        name = input("Enter your name: ")
         if name != "":
             self.name = name
         try:
@@ -39,6 +43,7 @@ class ClientChat:
                 message, address = self.clientSocket.recvfrom(1024)
                 print(message)
                 self.messageQueue.put((message, address))
+                print(self.messageQueue)
             except: 
                 pass
     def startThread(self):
@@ -56,8 +61,13 @@ class ClientChat:
             message = encoding(message)
             self.clientSocket.sendto(message,self.server)
         self.clientSocket.sendto(encoding('qqq'), server)
-        self.clientSocket.close()
+        self.clientSocket.close(
         os._exit(1)
+        )
+    def sendMessage(self, message):
+        message = encoding(message) #encoding-> utf8 truoc khi gui
+        self.clientSocket.sendto(message, self.server)
+
 if __name__ == "__main__":
     host = input("Serverhost: ")
     port = input("serverport: ")
