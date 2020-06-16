@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>506</width>
-    <height>611</height>
+    <width>499</width>
+    <height>598</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,10 +20,10 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>20</y>
+      <x>18</x>
+      <y>10</y>
       <width>461</width>
-      <height>71</height>
+      <height>81</height>
      </rect>
     </property>
     <property name="font">
@@ -39,14 +39,14 @@
 border-radius: 5px</string>
     </property>
     <property name="title">
-     <string>Server</string>
+     <string>Chat</string>
     </property>
     <widget class="QLineEdit" name="lineEdit">
      <property name="geometry">
       <rect>
-       <x>86</x>
-       <y>20</y>
-       <width>131</width>
+       <x>84</x>
+       <y>40</y>
+       <width>111</width>
        <height>20</height>
       </rect>
      </property>
@@ -66,8 +66,8 @@ border-radius: 5px</string>
     <widget class="QLineEdit" name="lineEdit_2">
      <property name="geometry">
       <rect>
-       <x>256</x>
-       <y>20</y>
+       <x>252</x>
+       <y>39</y>
        <width>91</width>
        <height>20</height>
       </rect>
@@ -88,8 +88,8 @@ border-radius: 5px</string>
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
-       <x>366</x>
-       <y>20</y>
+       <x>362</x>
+       <y>33</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -111,8 +111,8 @@ border-radius:0px</string>
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>46</x>
-       <y>23</y>
+       <x>43</x>
+       <y>43</y>
        <width>47</width>
        <height>13</height>
       </rect>
@@ -127,14 +127,14 @@ border-radius:0px</string>
       <string notr="true">background-color: rgb(134, 74, 255)rgb(255, 48, 238)</string>
      </property>
      <property name="text">
-      <string>Host:</string>
+      <string>Host     :</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>223</x>
-       <y>24</y>
+       <x>219</x>
+       <y>43</y>
        <width>47</width>
        <height>13</height>
       </rect>
@@ -155,8 +155,8 @@ border-radius:0px</string>
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>33</x>
-       <y>43</y>
+       <x>29</x>
+       <y>59</y>
        <width>391</width>
        <height>20</height>
       </rect>
@@ -177,20 +177,66 @@ border-radius:0px</string>
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>42</x>
+       <y>15</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Microsoft PhagsPa</family>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(134, 74, 255)rgb(255, 48, 238)</string>
+     </property>
+     <property name="text">
+      <string>Your Name</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_3">
+     <property name="geometry">
+      <rect>
+       <x>108</x>
+       <y>14</y>
+       <width>131</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Microsoft PhagsPa</family>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(220, 239, 255)</string>
+     </property>
+     <property name="text">
+      <string>Name...</string>
+     </property>
+    </widget>
     <zorder>label_3</zorder>
     <zorder>lineEdit</zorder>
     <zorder>lineEdit_2</zorder>
     <zorder>label</zorder>
     <zorder>label_2</zorder>
     <zorder>pushButton</zorder>
+    <zorder>label_10</zorder>
+    <zorder>lineEdit_3</zorder>
    </widget>
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>520</y>
+      <x>18</x>
+      <y>502</y>
       <width>391</width>
-      <height>41</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -209,7 +255,7 @@ border-radius:0px</string>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>18</x>
       <y>93</y>
       <width>461</width>
       <height>31</height>
@@ -228,12 +274,12 @@ border-radius:0px</string>
 border-radius: 5px</string>
     </property>
     <property name="title">
-     <string>Client</string>
+     <string>YourAdd</string>
     </property>
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>77</x>
        <y>11</y>
        <width>47</width>
        <height>13</height>
@@ -255,7 +301,7 @@ border-radius: 5px</string>
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>258</x>
        <y>12</y>
        <width>47</width>
        <height>13</height>
@@ -277,7 +323,7 @@ border-radius: 5px</string>
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>89</x>
+       <x>116</x>
        <y>11</y>
        <width>121</width>
        <height>20</height>
@@ -299,7 +345,7 @@ border-radius: 5px</string>
     <widget class="QLabel" name="label_8">
      <property name="geometry">
       <rect>
-       <x>265</x>
+       <x>293</x>
        <y>11</y>
        <width>141</width>
        <height>16</height>
@@ -322,8 +368,8 @@ border-radius: 5px</string>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>530</y>
+      <x>418</x>
+      <y>506</y>
       <width>61</width>
       <height>23</height>
      </rect>
@@ -345,8 +391,8 @@ border-radius:5px</string>
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>140</y>
+      <x>18</x>
+      <y>130</y>
       <width>461</width>
       <height>361</height>
      </rect>
@@ -361,8 +407,8 @@ background-color:qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0.
     <widget class="QScrollArea" name="scrollArea">
      <property name="geometry">
       <rect>
-       <x>8</x>
-       <y>8</y>
+       <x>7</x>
+       <y>7</y>
        <width>445</width>
        <height>345</height>
       </rect>
@@ -382,8 +428,62 @@ background-color:qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0.
         <height>345</height>
        </rect>
       </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <widget class="QLabel" name="label_6">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>8</y>
+         <width>331</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(126, 167, 255)</string>
+       </property>
+       <property name="text">
+        <string>Name: Hello</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_9">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>38</y>
+         <width>331</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(126, 167, 255)</string>
+       </property>
+       <property name="text">
+        <string>Name: Hello</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       </property>
+      </widget>
      </widget>
     </widget>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>540</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -391,7 +491,7 @@ background-color:qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0.
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>506</width>
+     <width>499</width>
      <height>21</height>
     </rect>
    </property>
