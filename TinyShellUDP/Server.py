@@ -19,12 +19,16 @@ class ServerShell:
             while True:
                 print(f'Get connection from {address}')
                 data = connection.recv(9999)
-                data.decode("utf-8")
+                data = data.decode('utf-8')
+                print(data)
                 if (data[:8] == "password" and data[-8:] == "password"):
                     if self.isPassword(data[8:-8]):
                         connection.send("Successful".encode('utf-8'))
                     else:
-                        connection.send("Failed".encode('utf-8'))
+                        connection.send("asdfsafsadfsdf ".encode('utf-8'))
                         connection.close()
-                else:
+                # else:
                     #processing data
+if __name__ == "__main__":
+    server = ServerShell(socket.gethostname(), 1257, "123456")
+    server.run()

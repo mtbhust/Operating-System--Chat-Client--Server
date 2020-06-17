@@ -40,28 +40,19 @@ class ServerChat:
 
         while True:
             while not self.messageQueue.empty():
-                message, currAddress = self.messageQueue.get() #xu ly hang doi tin nhan, lay ra tin dau tien
-                message = decoding(message) # tap tin gui ve la bytes, da duoc ma hoa (encode), nen can giai ma (decode) truoc khi tiep tuc
-                if currAddress not in allAddress: #check co phai la nguoi dung moi hay khong
-                    allAddress.add(currAddress) # neu nguoi dung moi -> them vao danh sach nguoi dang su dung
-                    # name = ""    # xu ly ten de co the dung cho personal message
-                    # for i in message:
-                    #     if (i != ':'):
-                    #         name += i
-                    # print(name)               
-                if (message == "exit"): # kiem tra thang clien co muon thoat khong
+                message, currAddress = self.messageQueue.get()
+                if currAddress not in allAddress:
+                    allAddress.add(currAddress)
+                message = decoding(message)
+                if (message == "exit"):
                     allAddress.remove(currAddress)
                     continue
-                print(str(currAddress) + message) #in ra console server
-                for addr in allAddress: # gui den tat ca thang con lai ngoai thang hien tai
+                print(str(currAddress) + message)
+                message = encoding(message)
+                for addr in allAddress:
                     if (addr == currAddress):
                         continue
-                    message = encoding(message) #ma hoa tin nhan roi gui di
-                    try:
-                        self.serverSocket.sendto(message, addr) # gui tin nhawn den addr voi noi dung message
-                    except:
-                        allAddress.remove(addr)
-
+                    self.serverSocket.sendto(message, addr)
 if __name__ == "__main__": 
     host = socket.gethostbyname(socket.gethostname())
     port = int(1235)

@@ -37,23 +37,19 @@ class ClientChat:
         # name = input("Enter your name: ")
         if name != "":
             self.name = name
-        #thu gui tap tin dau tien, can encode truowc khi gui
-        self.clientSocket.settimeout(5)
         #Thoi gian gui va nhan toi da de xac nhan truy cap la 5 giay
-        self.clientSocket.sendto(encoding(self.name + " join the chat server"), self.server)
         try:
-            temp = self.clientSocket.recvfrom(1024)
-            print(decoding(temp))
-            return 1
-        except:
-            return 0
+            self.clientSocket.sendto(encoding(self.name + "join the chat server"), self.server)
+        except Exception as e:
+            print(e)
 
     def messageReciever(self): #luong nhan tin
         while True:
             try:
                 message, address = self.clientSocket.recvfrom(1024)
-                message = encoding(message)
+                message = decoding(message)
                 self.messageQueue.put((message, address))
+                print(message)
             except: 
                 pass
     def startThread(self):
@@ -73,10 +69,10 @@ class ClientChat:
         self.clientSocket.sendto(message, self.server)
 
 if __name__ == "__main__":
-    host = input("Serverhost: ")
-    port = input("serverport: ")
+    host = "192.168.1.3"
+    port = 1235
     client =  ClientChat(host, port)
     client.createSocket()
-    client.defineUser(name)
     client.startThread()
-    client.run()
+    client.defineUser("Manhturong")
+    client.sendMessage("alsdkfjslkdafjlksadfj")

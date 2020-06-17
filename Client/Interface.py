@@ -217,13 +217,27 @@ class Ui_MainWindow(object):
                 self.label_7.setText(_translate("MainWindow", "...."))
                 self.label_8.setText(_translate("MainWindow", "...."))
                 self.pushButton_3.setText(_translate("MainWindow", "Send"))
+        def addOtherMessageLabel(self,message):
+                label_ = QtWidgets.QLabel()
+                label_.setFixedSize( 331, 20)
+                label_.setStyleSheet("background-color:rgb(126, 167, 255)")
+                label_.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+                label_.setText(message) 
+                self.formLay.addRow(label_)
+                self.scrollAreaWidgetContents_2.show()
+        def addMyMessageLabel(self,message):
+                label_ = QtWidgets.QLabel()
+                label_.setFixedSize( 331, 20)
+                label_.setStyleSheet("background-color:rgb(145, 167, 255)")
+                label_.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+                label_.setText(message)
+                self.formLay.addRow(label_)
+                self.scrollAreaWidgetContents_2.show()
         def render(self):
                 while True:
                         try:
                                 message, address = self.client.messageQueue.get()
-                                print(message)
-                                message = message.decode('utf-8')
-                                self.addMyMessageLabel(message)
+                                self.addOtherMessageLabel(message)
                         except:
                                 pass
         def connectButton(self):
@@ -247,22 +261,7 @@ class Ui_MainWindow(object):
                                 self.label_3.setText("Failed to connect")
                 except:
                         self.label_3.setText("Please enter correct syntax")
-        def addOtherMessageLabel(self,message):
-                label_ = QtWidgets.QLabel()
-                label_.setFixedSize( 331, 20)
-                label_.setStyleSheet("background-color:rgb(126, 167, 255)")
-                label_.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-                label_.setText(message) 
-                self.formLay.addRow(label_)
-                self.scrollAreaWidgetContents_2.show()
-        def addMyMessageLabel(self,message):
-                label_ = QtWidgets.QLabel()
-                label_.setFixedSize( 331, 20)
-                label_.setStyleSheet("background-color:rgb(145, 167, 255)")
-                label_.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-                label_.setText(message)
-                self.formLay.addRow(label_)
-                self.scrollAreaWidgetContents_2.show()
+        
         def sendButton(self):
                 message = self.textEdit.toPlainText()
                 
