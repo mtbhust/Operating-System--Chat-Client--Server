@@ -18,8 +18,8 @@ from queue import Queue
 class Ui_MainWindow(object):
         msgQueue = Queue()
         def setupUi(self, MainWindow):
-                MainWindow.setObjectName("MainWindow")
-                MainWindow.resize(499, 591)
+                MainWindow.setObjectName("Chat client")
+                MainWindow.setFixedSize(499, 591)
                 MainWindow.setStyleSheet("")
                 self.centralwidget = QtWidgets.QWidget(MainWindow)
                 self.centralwidget.setObjectName("centralwidget")
@@ -204,10 +204,10 @@ class Ui_MainWindow(object):
 
         def retranslateUi(self, MainWindow):
                 _translate = QtCore.QCoreApplication.translate
-                MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+                MainWindow.setWindowTitle(_translate("MainWindow", "Chat Client"))
                 self.groupBox.setTitle(_translate("MainWindow", "Chat"))
-                self.lineEdit.setText(_translate("MainWindow", "Enter server host"))
-                self.lineEdit_2.setText(_translate("MainWindow", "Enter server port"))
+                self.lineEdit.setText(_translate("MainWindow", "Enter Server Host"))
+                self.lineEdit_2.setText(_translate("MainWindow", "Enter Server Port"))
                 self.pushButton.setText(_translate("MainWindow", "Connect"))
                 self.label.setText(_translate("MainWindow", "Host     :"))
                 self.label_2.setText(_translate("MainWindow", "Port:"))
@@ -221,43 +221,48 @@ class Ui_MainWindow(object):
                 self.label_8.setText(_translate("MainWindow", "...."))
                 self.pushButton_3.setText(_translate("MainWindow", "Send"))
         def addOtherMessageLabel(self,message):
+                font = QtGui.QFont()
+                font.setFamily("Microsoft PhagsPa")
+                font.setPointSize(10)
+                font.setBold(True)
+                font.setItalic(True)
                 label_ = QtWidgets.QLabel()
-                label_.setFixedSize( 331, 20)
+                label_.setFont(font)
+                label_.setFixedSize( 420, 20)
                 label_.setStyleSheet("background-color:rgb(126, 167, 255)")
                 label_.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
                 label_.setText(message) 
                 self.formLay.addRow(label_)
                 self.scrollAreaWidgetContents_2.show()
         def addMyMessageLabel(self,message):
+                font = QtGui.QFont()
+                font.setFamily("Microsoft PhagsPa")
+                font.setPointSize(10)
+                font.setBold(True)
+                font.setItalic(True)
                 label_ = QtWidgets.QLabel()
-                label_.setFixedSize( 331, 20)
-                label_.setStyleSheet("background-color:rgb(145, 167, 255)")
-                label_.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-                label_.setText(message)
+                label_.setFont(font)
+                label_.setFixedSize( 420, 20)
+                label_.setStyleSheet("background-color:rgb(236, 235, 255)")
+                label_.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignRight|QtCore.Qt.AlignTop)
+                label_.setText(f"{self.name}:{message}")
                 self.formLay.addRow(label_)
                 self.scrollAreaWidgetContents_2.show()
-        def render(self):
-                while True:
-                        try:
-                                message, address = self.client.messageQueue.get()
-                                self.addOtherMessageLabel(message)
-                        except:
-                                pass
+        def render(self, message):
+                self.addOtherMessageLabel(message)
         class MyThread(QThread):
-                # Create a counter thread
-                def __init__(self,msgQueue):
-                        QThread.__init__(self)
-                        self.msgQueue = msgQueue
-                def
                 notEmpty = pyqtSignal(str)
-                def run(self, msgQueue):
-                        while not msgQueue.empty():
-                                message, address = msgQueue.get()
+                msgQueue = Queue()
+                def run(self):
+                        while True:
                                 try:
-                                        message = message.decode('utf-8')
+                                        message, address = self.msgQueue.get()
+                                        self.notEmpty.emit(message)
                                 except:
                                         pass
-                                self.notEmpty.emit(message)
+        def updateMythread(self):
+                while True:
+                        self.thread.msgQueue = self.client.messageQueue
 
         def connectButton(self):
                 self.name = self.lineEdit_3.text()
@@ -271,17 +276,20 @@ class Ui_MainWindow(object):
                         check0 = self.client.createSocket()
                         self.client.defineUser(self.name)
                         if (check0 == 1):
-                                self.label_3.setText("Connected to Server")
-                                global self.msgQueue 
-                                self.msgQueue= self.client.messageQueue
                                 self.client.startThread()
-                                Thread(target = self.render).start()
-                                self.MyThread.notEmpty.connect(self.addOtherMessageLabel)
+
+                                self.thread = self.MyThread()
+                                Thread(target= self.updateMythread).start()
+                                self.thread.notEmpty.connect(self.render)
+                                self.thread.start()
+
                                 self.label_7.setText(self.client.hostC)
                                 self.label_8.setText(str(self.client.portC))
+                                self.label_3.setText("Connected to Server")
                         else:
                                 self.label_3.setText("Failed to connect")
-                except:
+                except Exception as e:
+                        print(e)
                         self.label_3.setText("Please enter correct syntax")
         
         def sendButton(self):
