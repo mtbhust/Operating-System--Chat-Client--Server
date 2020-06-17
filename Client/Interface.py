@@ -8,6 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import pyqtSignal, QThread
 
 import Client
 from Client import ClientChat
@@ -237,9 +238,18 @@ class Ui_MainWindow(object):
                 while True:
                         try:
                                 message, address = self.client.messageQueue.get()
+                                
                                 self.addOtherMessageLabel(message)
                         except:
                                 pass
+        class MyThread(QThread):
+                notEmpty = pyqtSignal(str)
+                def run(self, client):
+                        while True:
+                                try:
+                                        client.messageQueue()
+                                except:
+                                        pass
         def connectButton(self):
                 self.name = self.lineEdit_3.text()
                 if (self.name == "" or self.name == "Name..."):
