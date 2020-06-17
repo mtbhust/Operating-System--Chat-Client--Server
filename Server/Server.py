@@ -55,6 +55,7 @@ class ServerChat:
                 message, currAddress = self.messageQueue.get()
                 if currAddress not in allAddress:
                     allAddress.add(currAddress)
+                    print(type(currAddress[1]))
                 message = decoding(message)
                 name, message = extractData(message) # tu tin nhan gui den -> trich xuat ra ten
                 self.listUser[name] = currAddress
@@ -70,14 +71,19 @@ class ServerChat:
                     nameindex = [message.find('<'), message.find('>')]
                     nameRecv = message[nameindex[0]+1:nameindex[1]] #lay ten ra o trong message
                     message = message[nameindex[1]+1:]
-                    address = self.listUser[name] # tim dia chi cua thang co ten trong dicttionary
+                    address = self.listUser[nameRecv] # tim dia chi cua thang co ten trong dicttionary
+                    print(address)
                     try:
                         #can xu ly du lieu
+                        print("FROM " + name + " to " +  nameRecv+ ":" +message)
+                        print(f"destination {address}")
                         message = "FROM " + name + ":" +" " + message
-                        self.serverSocket.sendto(message, address)                        
-                    except:
-                        allAddress.remove(address)
-                        del self.listUser[name]
+                        message = encoding(message)
+                        self.serverSocket.sendto(message, address)                      
+                    except Exception as e:
+                        # allAddress.remove(address)
+                        # del self.listUser[name]
+                        print(e)
                 else:
                     message = name +": " + message
                     print(message)
@@ -88,7 +94,7 @@ class ServerChat:
                         self.serverSocket.sendto(message, addr)
 if __name__ == "__main__": 
     host = socket.gethostbyname(socket.gethostname())
-    port = int(1235)
+    port = int(1236)
     server = ServerChat(host, port)          
     server.createSocket()         
     server.run()

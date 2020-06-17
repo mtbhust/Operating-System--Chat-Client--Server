@@ -68,12 +68,25 @@ class ClientChat:
         message = self.name + ":" + message
         message = encoding(message) #encoding-> utf8 truoc khi gui
         self.clientSocket.sendto(message, self.server)
-
+    def run(self):
+        while True:
+            message = input()
+            if (message == 'quit'):
+                break
+            if message =='':
+                continue
+            message = self.name +":" + message
+            message = encoding(message)
+            self.clientSocket.sendto(message,self.server)
+        self.clientSocket.sendto(encoding('qqq'), server)
+        self.clientSocket.close(
+        os._exit(1)
+        )
 if __name__ == "__main__":
     host = "192.168.1.3"
-    port = 1235
+    port = 1236
     client =  ClientChat(host, port)
     client.createSocket()
     client.startThread()
-    client.defineUser("Manhturong121231233a")
-    client.sendMessage("<pm><Manhturong121231233> Hello may cungs")
+    client.defineUser(input("Name:"))
+    client.run()

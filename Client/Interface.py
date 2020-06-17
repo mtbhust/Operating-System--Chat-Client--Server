@@ -236,9 +236,10 @@ class Ui_MainWindow(object):
                 label_.setText(message)
                 self.formLay.addRow(label_)
                 self.scrollAreaWidgetContents_2.show()
-        def render(self,message):
+        def render(self):
                 while True:
                         try:
+                                message, address = self.client.messageQueue.get()
                                 self.addOtherMessageLabel(message)
                         except:
                                 pass
@@ -274,7 +275,7 @@ class Ui_MainWindow(object):
                                 global self.msgQueue 
                                 self.msgQueue= self.client.messageQueue
                                 self.client.startThread()
-                                ###################### Thread Render
+                                Thread(target = self.render).start()
                                 self.MyThread.notEmpty.connect(self.addOtherMessageLabel)
                                 self.label_7.setText(self.client.hostC)
                                 self.label_8.setText(str(self.client.portC))
