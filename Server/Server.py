@@ -5,10 +5,11 @@ def encoding(message):
     return message.encode("utf-8")
 def decoding(message):
     return message.decode("utf-8")
-def extractName(message):
+def extractData(message):
     index = message.find(':')
     name = message[:index]
-    return name
+    message = message[index+1:]
+    return name, message
 def isPersonalMessage(message):
     header = message[:4]
     if header == "<pm>":
@@ -55,8 +56,9 @@ class ServerChat:
                 if currAddress not in allAddress:
                     allAddress.add(currAddress)
                 message = decoding(message)
-                name = extractName(message) # tu tin nhan gui den -> trich xuat ra ten
+                name, message = extractData(message) # tu tin nhan gui den -> trich xuat ra ten
                 self.listUser[name] = currAddress
+                print(f"List user {self.listUser}")
                 # exit signal chua dung
                 if (message == "exit"):
                     allAddress.remove(currAddress)
@@ -66,16 +68,19 @@ class ServerChat:
                 if isPersonalMessage(message):
                     message = message[4:]
                     nameindex = [message.find('<'), message.find('>')]
-                    name = message[nameindex[0]+1:nameindex[1]] #lay ten ra o trong message
+                    nameRecv = message[nameindex[0]+1:nameindex[1]] #lay ten ra o trong message
+                    message = message[nameindex[1]+1:]
                     address = self.listUser[name] # tim dia chi cua thang co ten trong dicttionary
                     try:
                         #can xu ly du lieu
+                        message = "FROM " + name + ":" +" " + message
                         self.serverSocket.sendto(message, address)                        
                     except:
                         allAddress.remove(address)
                         del self.listUser[name]
                 else:
-                    print(str(currAddress) + message)
+                    message = name +": " + message
+                    print(message)
                     message = encoding(message)
                     for addr in allAddress:
                         if (addr == currAddress):

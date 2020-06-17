@@ -8,13 +8,15 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import pyqtSignal, QThread
+from PyQt5.QtCore import pyqtSignal, QThread, QThreadPool
 
 import Client
 from Client import ClientChat
 from threading import Thread
+from queue import Queue
 
 class Ui_MainWindow(object):
+        msgQueue = Queue()
         def setupUi(self, MainWindow):
                 MainWindow.setObjectName("MainWindow")
                 MainWindow.resize(499, 591)
@@ -234,22 +236,28 @@ class Ui_MainWindow(object):
                 label_.setText(message)
                 self.formLay.addRow(label_)
                 self.scrollAreaWidgetContents_2.show()
-        def render(self):
+        def render(self,message):
                 while True:
                         try:
-                                message, address = self.client.messageQueue.get()
-                                
                                 self.addOtherMessageLabel(message)
                         except:
                                 pass
         class MyThread(QThread):
+                # Create a counter thread
+                def __init__(self,msgQueue):
+                        QThread.__init__(self)
+                        self.msgQueue = msgQueue
+                def
                 notEmpty = pyqtSignal(str)
-                def run(self, chatClient):
-                        while True:
+                def run(self, msgQueue):
+                        while not msgQueue.empty():
+                                message, address = msgQueue.get()
                                 try:
-                                        chatClient.client.messageQueue()
+                                        message = message.decode('utf-8')
                                 except:
                                         pass
+                                self.notEmpty.emit(message)
+
         def connectButton(self):
                 self.name = self.lineEdit_3.text()
                 if (self.name == "" or self.name == "Name..."):
@@ -263,8 +271,11 @@ class Ui_MainWindow(object):
                         self.client.defineUser(self.name)
                         if (check0 == 1):
                                 self.label_3.setText("Connected to Server")
+                                global self.msgQueue 
+                                self.msgQueue= self.client.messageQueue
                                 self.client.startThread()
-                                Thread(target= self.render).start()
+                                ###################### Thread Render
+                                self.MyThread.notEmpty.connect(self.addOtherMessageLabel)
                                 self.label_7.setText(self.client.hostC)
                                 self.label_8.setText(str(self.client.portC))
                         else:

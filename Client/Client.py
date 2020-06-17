@@ -39,7 +39,7 @@ class ClientChat:
             self.name = name
         #Thoi gian gui va nhan toi da de xac nhan truy cap la 5 giay
         try:
-            self.clientSocket.sendto(encoding(self.name + "join the chat server"), self.server)
+            self.clientSocket.sendto(encoding(self.name + ": join the chat server"), self.server)
         except Exception as e:
             print(e)
 
@@ -59,20 +59,21 @@ class ClientChat:
         reciever.start()
 
     def sendMessage(self, message): #ham nay dang interface hoan thanh
-        if (message == 'exit'):
+        if (message == 'qqq'):
                 self.clientSocket.close()
                 os._exit(1)
         if message =='':
             return
-        message
+
+        message = self.name + ":" + message
         message = encoding(message) #encoding-> utf8 truoc khi gui
         self.clientSocket.sendto(message, self.server)
 
 if __name__ == "__main__":
-    host = "192.168.11.144"
+    host = "192.168.1.3"
     port = 1235
     client =  ClientChat(host, port)
     client.createSocket()
     client.startThread()
-    client.defineUser("Manhturong")
-    client.sendMessage("alsdkfjslkdafjlksadfj")
+    client.defineUser("Manhturong121231233a")
+    client.sendMessage("<pm><Manhturong121231233> Hello may cungs")
