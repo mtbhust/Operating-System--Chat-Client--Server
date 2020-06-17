@@ -69,7 +69,7 @@ class ClientChat:
         self.clientSocket.sendto(message, self.server)
 
 if __name__ == "__main__":
-    host = "192.168.1.3"
+    host = "192.168.11.144"
     port = 1235
     client =  ClientChat(host, port)
     client.createSocket()

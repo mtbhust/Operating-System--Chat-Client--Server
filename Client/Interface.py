@@ -244,10 +244,10 @@ class Ui_MainWindow(object):
                                 pass
         class MyThread(QThread):
                 notEmpty = pyqtSignal(str)
-                def run(self, client):
+                def run(self, chatClient):
                         while True:
                                 try:
-                                        client.messageQueue()
+                                        chatClient.client.messageQueue()
                                 except:
                                         pass
         def connectButton(self):
